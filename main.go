@@ -5,7 +5,18 @@ import (
 )
 
 func main() {
+	// lec2()
+	// lec3()
+	lec4()
 
+}
+
+func lec2() {
+	// 실행 시키려면 go run lec2.go
+	// 빌드 하려면 go build lec2.go
+}
+
+func lec3() {
 	// strings
 	var nameOne string = "Kim"
 	var nameTwo = "Hwnag"
@@ -41,8 +52,35 @@ func main() {
 	var scoreThree = 90.97                                  // 이렇게해도 float64 사용
 
 	fmt.Println(scoreOne, scoreTwo, scoreThree)
-
 }
 
-// 실행 시키려면 go run lec2.go
-// 빌드 하려면 go build lec2.go
+func lec4() {
+	age := 24
+	stringAge := "24"
+	name := "brendan"
+
+	// Print
+
+	fmt.Print("Hello, ")
+	fmt.Print("World!\n")
+	fmt.Print("new line \n")
+
+	// Println
+	fmt.Println("hello brendan")
+	fmt.Println("goodbye brendan")
+	fmt.Println("my age is", age, "and my name is", name)
+
+	// Printf (formatted strings)
+	fmt.Printf("my age is %v and my name is %v\n", age, name) // %v 는 default 값을 출력
+	fmt.Printf("my age is %d and my name is %s\n", age, name)
+	fmt.Printf("my age is %T and my name is %T\n", age, name)
+	fmt.Printf("my age is %q and my name is %q\n", stringAge, name)
+	fmt.Printf("your scored %f points! \n", 225.555)
+	fmt.Printf("your scored %.1f points! \n", 225.555)
+	fmt.Printf("my age is %% and my name is %%\n")
+
+
+	// Sprintf (save formatted strings) 
+	intro := fmt.Sprintf("my age is %v and my name is %v", age, name)
+	fmt.Println(intro)
+}
