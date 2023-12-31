@@ -14,6 +14,11 @@ type User struct {
 	CreatedAt time.Time `json:"created_at"`
 }
 
+func indexHandler(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprint(w, "Hello, World!") // 이건 창에 출력
+	// fmt.Println("Hello, World!") 이건 콘솔 출력
+}
+
 type fooHandler struct {
 }
 
@@ -38,16 +43,13 @@ func barHandler(w http.ResponseWriter, r *http.Request) {
 	if name == "" {
 		name = "World"
 	}
-	fmt.Fprintf(w, "Hello %s", name)
+	fmt.Fprintf(w, "Hello %s!", name)
 }
 
 
 func NewHttpHandler() http.Handler {
 	mux := http.NewServeMux()
-	mux.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		fmt.Fprint(w, "Hello, World!") // 이건 창에 출력
-		// fmt.Println("Hello, World!") 이건 콘솔 출력
-	})
+	mux.HandleFunc("/", indexHandler)
 
 	mux.HandleFunc("/bar", barHandler)
 
