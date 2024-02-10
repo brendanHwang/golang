@@ -20,6 +20,6 @@ func insertion_sort(array []int) {
 
 func main() {
 	array := []int{1, 10, 5, 8, 7, 6, 4, 3, 2, 9}
-	insertion_sort(array)
+	InsertionSort(array)
 	fmt.Print(array)
 }

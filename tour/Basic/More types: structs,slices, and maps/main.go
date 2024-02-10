@@ -2,6 +2,9 @@ package main
 
 import (
 	"fmt"
+	"golang.org/x/tour/pic"
+	"golang.org/x/tour/wc"
+	"math"
 	"strings"
 )
 
@@ -218,6 +221,184 @@ func SlicesOfSlices() {
 	}
 }
 
+// page15
+func AppendingToASlice() {
+	var s []int
+	printSlice(s)
+
+	s = append(s, 0)
+	printSlice(s)
+
+	s = append(s, 2, 3, 4)
+	printSlice(s)
+}
+
+// page16
+func Range() {
+	var pow = []int{1, 2, 4, 8, 16, 32, 64, 128}
+
+	for i, v := range pow {
+		fmt.Printf("2**%d = %d\n", i, v)
+	}
+}
+
+// page17
+
+func RangeContinued() {
+	pow := make([]int, 10)
+	for i := range pow {
+		pow[i] = 1 << uint(i) // == 2**i
+	}
+	for _, value := range pow {
+		fmt.Printf("%d\n", value)
+	}
+
+}
+
+// page18
+func Pic(dx, dy int) [][]uint8 {
+	// 2차원 슬라이스 생성
+	image := make([][]uint8, dy)
+	for y := 0; y < dy; y++ {
+		// 각 행에 대한 슬라이스 할당
+		image[y] = make([]uint8, dx)
+		for x := 0; x < dx; x++ {
+			// 각 픽셀 값을 계산 (예: (x + y) / 2)
+			image[y][x] = uint8((x + y) / 2)
+		}
+	}
+	return image
+}
+
+func ExerciseSlices() {
+	pic.Show(Pic)
+}
+
+// page19
+
+type Vertex3 struct {
+	Lat, Long float64
+}
+
+var m map[string]Vertex3
+
+func Maps() {
+	m = make(map[string]Vertex3)
+	m["Bell Labs"] = Vertex3{
+		40.68433, -74.39967,
+	}
+	fmt.Println(m["Bell Labs"])
+}
+
+// page20
+
+var m2 = map[string]Vertex3{
+	"Bell Labs": Vertex3{
+		40.68433, -74.39967,
+	},
+	"Google": Vertex3{
+		37.42202, -122.08408,
+	},
+}
+
+func MapLiterals() {
+	fmt.Println(m2)
+}
+
+// page21
+func MapLiteralsContinued() {
+	m3 := map[string]Vertex3{
+		"Bell Labs": {40.68433, -74.39967},
+		"Google":    {37.42202, -122.08408},
+	}
+	fmt.Println(m3)
+}
+
+// page22
+func MutatingMaps() {
+	m := make(map[string]int)
+
+	m["Answer"] = 42
+	fmt.Println("The value:", m["Answer"])
+
+	m["Answer"] = 48
+	fmt.Println("The value:", m["Answer"])
+
+	delete(m, "Answer")
+	fmt.Println("The value:", m["Answer"])
+
+	v, ok := m["Answer"]
+	fmt.Println("The value:", v, "Present?", ok)
+}
+
+// page23
+func WordCount(s string) map[string]int {
+	m := make(map[string]int)
+	words := strings.Fields(s)
+	for _, word := range words {
+		m[word]++
+	}
+
+	return m
+}
+
+func ExerciseMaps() {
+	wc.Test(WordCount)
+}
+
+// page24
+
+func compute(fn func(float64, float64) float64) float64 {
+	return fn(3, 4)
+}
+func FunctionValues() {
+	hypot := func(x, y float64) float64 {
+		return x + y
+	}
+	fmt.Println(hypot(5, 12))
+	fmt.Println(compute(hypot))
+	fmt.Println(compute(math.Pow))
+
+}
+
+// page25
+func adder() func(int) int {
+	sum := 0
+	return func(x int) int {
+		sum += x
+		return sum
+	}
+
+}
+
+func FunctionClosures() {
+	pos, neg := adder(), adder()
+	for i := 0; i < 10; i++ {
+		fmt.Println(
+			pos(i),
+			neg(-2*i),
+		)
+
+	}
+}
+
+// page26
+func fibonacci() func() int {
+	fib1, fib2 := 0, 1
+	return func() int {
+		fib1, fib2 = fib2, fib1+fib2
+		return fib1
+	}
+
+}
+
+func ExerciseFibonacciClosure() {
+	f := fibonacci()
+	for i := 0; i < 10; i++ {
+		fmt.Println(f())
+	}
+}
+
 func main() {
 	//Pointers()
 	//Structs()
@@ -232,5 +413,16 @@ func main() {
 	//SliceLengthAndCapacity()
 	//NilSlices()
 	//CreatingASliceWithMake()
-	SlicesOfSlices()
+	//SlicesOfSlices()
+	//AppendingToASlice()
+	//Range()
+	//RangeContinued()
+	//ExerciseSlices()
+	//Maps()
+	//MapLiterals()
+	//MutatingMaps()
+	//ExerciseMaps()
+	//FunctionValues()
+	//FunctionClosures()
+	ExerciseFibonacciClosure()
 }
